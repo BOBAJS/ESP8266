@@ -1,0 +1,22 @@
+{
+  "name": "ILI9163",
+  "keywords": "display",
+  "description": "A very fast driver for ILI9163C TFT displays for ESP8266",
+  "exclude": [
+	"doc",
+	"*.pdf"
+	],
+  "authors": 
+  {
+    "name": "joaquim.org",
+    "email": "joaquim.org@gmail.com",
+    "url": "http://www.joaquim.org",
+	"maintainer": true
+  },   
+  "frameworks": "arduino",
+  "platforms":
+  [
+    "espressif",
+	"arm"
+  ]
+}
