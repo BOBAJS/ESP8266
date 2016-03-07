@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ESP8262 - ZX81 Emulator</title>
+
+    <link rel="stylesheet" href="pure-min.css">
+    <link rel="stylesheet" href="grids-responsive-min.css">
+    <link rel="stylesheet" href="emulator.css">
+
+    <style type="text/css">
+        @font-face {
+          font-family: 'monospace';
+          font-style: normal;
+          font-weight: 400;
+          src: local('zx'), local('zx'), url(zx.ttf) format('truetype');
+        }
+
+        body {
+            font-family: 'monospace';
+            margin: 20px;
+        }
+
+        #keyboard {
+            background:white url(keyboard640.png) no-repeat 0 0;
+            position:relative;
+            z-index:0;
+            width:640px;
+            height:223px;
+        }
+
+        .keyRow {
+
+        }
+
+        .key {
+            position:relative;
+            width:46px;
+            height:34px;
+            margin-left: 12px; 
+            margin-top: 21px;
+            border-radius: 5px;
+            border:1px solid #000;
+            float: left;
+            cursor: pointer; 
+        }
+
+        .keyL01 { margin-top: 2px; }
+        .firstKeyL01 { margin-left: 2px; }
+
+        .firstKeyL02 { margin-left: 34px; }
+
+        .firstKeyL03 { margin-left: 48px; }
+
+        .keyL04 { margin-top: 22px; }
+        .firstKeyL04 { margin-left: 20px; }
+        
+        .key:hover {
+            border-radius: 5px;
+            border:1px solid #3FFF00;
+        }
+
+        .screenBorder {
+            background-color: #FFF;
+            width: 224px;
+            height: 256px;
+            margin-bottom: 10px;
+            font-size: 10px;
+            display: none;
+        }
+        
+        .screen {
+            
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+            <a class="pure-menu-heading" href="">ESP8262 - ZX81 Emulator</a>
+
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item pure-menu-selected"><a href="index.html" class="pure-menu-link">Emulator</a></li>
+                <li class="pure-menu-item"><a href="http://www.joaquim.org" class="pure-menu-link">www.joaquim.org</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="splash-container">
+        <div class="splash">
+
+            <div class="screenBorder">
+                <div id="screen" class="screen">
+                
+                </div>
+            </div>
+
+            <div id="keyboard">
+                <div class="keyRow">
+                    <div id="1" class="key keyL01 firstKeyL01"></div>
+                    <div id="2" class="key keyL01"></div>
+                    <div id="3" class="key keyL01"></div>
+                    <div id="4" class="key keyL01"></div>
+                    <div id="5" class="key keyL01"></div>
+                    <div id="6" class="key keyL01"></div>
+                    <div id="7" class="key keyL01"></div>
+                    <div id="8" class="key keyL01"></div>
+                    <div id="9" class="key keyL01"></div>
+                    <div id="10" class="key keyL01"></div>
+                </div>
+
+                <div class="keyRow">
+                    <div id="11" class="key keyL02 firstKeyL02"></div>
+                    <div id="12" class="key keyL02"></div>
+                    <div id="13" class="key keyL02"></div>
+                    <div id="14" class="key keyL02"></div>
+                    <div id="15" class="key keyL02"></div>
+                    <div id="16" class="key keyL02"></div>
+                    <div id="17" class="key keyL02"></div>
+                    <div id="18" class="key keyL02"></div>
+                    <div id="19" class="key keyL02"></div>
+                    <div id="20" class="key keyL02"></div>
+                </div>
+
+                <div class="keyRow">
+                    <div id="21" class="key keyL03 firstKeyL03"></div>
+                    <div id="22" class="key keyL03"></div>
+                    <div id="23" class="key keyL03"></div>
+                    <div id="24" class="key keyL03"></div>
+                    <div id="25" class="key keyL03"></div>
+                    <div id="26" class="key keyL03"></div>
+                    <div id="27" class="key keyL03"></div>
+                    <div id="28" class="key keyL03"></div>
+                    <div id="29" class="key keyL03"></div>
+                    <div id="30" class="key keyL03"></div>
+                </div>
+
+                <div class="keyRow">
+                    <div id="31" class="key keyL04 firstKeyL04"></div>
+                    <div id="32" class="key keyL04"></div>
+                    <div id="33" class="key keyL04"></div>
+                    <div id="34" class="key keyL04"></div>
+                    <div id="35" class="key keyL04"></div>
+                    <div id="36" class="key keyL04"></div>
+                    <div id="37" class="key keyL04"></div>
+                    <div id="38" class="key keyL04"></div>
+                    <div id="39" class="key keyL04"></div>
+                    <div id="40" class="key keyL04"></div>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+    <script src="jquery-2.2.0.min.js"></script>
+
+    <script type="text/javascript">
+
+        function key_code( key ) {
+
+            switch (key) {
+                case 49: return 1;
+                case 50: return 2;
+                case 51: return 3;
+                case 52: return 4;
+                case 53: return 5;
+                case 54: return 6;
+                case 55: return 7;
+                case 56: return 8;
+                case 57: return 9;
+                case 48: return 10;
+                case 81: return 11;
+                case 87: return 12;
+                case 69: return 13;
+                case 82: return 14;
+                case 84: return 15;
+                case 89: return 16;
+                case 85: return 17;
+                case 73: return 18;
+                case 79: return 19;
+                case 80: return 20;
+                case 65: return 21;
+                case 83: return 22;
+                case 68: return 23;
+                case 70: return 24;
+                case 71: return 25;
+                case 72: return 26;
+                case 74: return 27;
+                case 75: return 28;
+                case 76: return 29;
+                case 13: return 30;
+                case 90: return 32;
+                case 88: return 33;
+                case 67: return 34;
+                case 86: return 35;
+                case 66: return 36;
+                case 78: return 37;
+                case 77: return 38;
+                case 190: return 39;
+                case 32: return 40;
+
+                case 16: return 31;
+            }
+            return 0;
+        }
+
+        var isShift = 0;
+        var isFunction = 0;
+
+        function sendKeyEmulator( keyId, isShift, isFunction ) {
+            
+            console.log('emulatorkey post : ' + keyId + ' | Shift : ' + isShift + " | isFunction : " + isFunction);
+
+            $.post('/emulatorkey', { keyid: keyId, isshift: isShift, isfunction: isFunction}, 
+                function(returnedData){
+                     console.log(returnedData);
+            });
+        }
+
+        function processKey( keyId ) {
+            if ( keyId == 31 ) {                    
+                if (isShift != 1) {                        
+                    isShift = 1;
+                    $('#keyboard').css('background-image', 'url(keyboard640_shift.png)');
+                    sendKeyEmulator( keyId, isShift, isFunction );
+
+                }
+            } else if ( keyId == 30 && isShift == 1) {
+                if ( isFunction == 0) {
+                    isFunction = 1;
+                    $('#keyboard').css('background-image', 'url(keyboard640_shiftlock.png)');
+                    sendKeyEmulator( keyId, isShift, isFunction );
+
+                }
+            }
+            else {
+                
+                sendKeyEmulator( keyId, isShift, isFunction );
+
+                if (isShift == 1) {
+                    $('#keyboard').css('background-image', 'url(keyboard640.png)');
+                    isShift = 0;
+                    isFunction = 0;
+                }
+            }
+        }
+
+        $(function() {
+            $(".key").click(function() {
+                var keyId = $(this).attr("id");
+                processKey( keyId );                
+            });
+
+            $(document).on('keydown', function(e) {
+                var convKey = key_code( e.which );
+                processKey( convKey );
+                
+            });
+
+        });
+    </script>
+</body>
+</html>
